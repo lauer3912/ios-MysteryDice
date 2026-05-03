@@ -30,6 +30,7 @@ targets:
       - path: Sources
         excludes:
           - "**/.DS_Store"
+          - "ScreenshotTests/**"
       - path: AppStore/Assets
         buildPhase: resources
     settings:
@@ -45,6 +46,19 @@ targets:
       path: Sources/App/MysteryDice.entitlements
       properties:
         com.apple.security.app-sandbox: true
+
+  MysteryDiceUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: Sources/ScreenshotTests
+    dependencies:
+      - target: MysteryDice
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ggsheng.MysteryDiceUITests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: MysteryDice
 
   MysteryDiceTests:
     type: bundle.unit-test

@@ -29,30 +29,35 @@ struct ContentView: View {
                     Label(Tab.home.rawValue, systemImage: Tab.home.iconName)
                 }
                 .tag(Tab.home)
+                .accessibilityIdentifier("tab_home")
             
             CaseListView()
                 .tabItem {
                     Label(Tab.cases.rawValue, systemImage: Tab.cases.iconName)
                 }
                 .tag(Tab.cases)
+                .accessibilityIdentifier("tab_cases")
             
             EvidenceBoardView()
                 .tabItem {
                     Label(Tab.evidence.rawValue, systemImage: Tab.evidence.iconName)
                 }
                 .tag(Tab.evidence)
+                .accessibilityIdentifier("tab_evidence")
             
             StatsView()
                 .tabItem {
                     Label(Tab.stats.rawValue, systemImage: Tab.stats.iconName)
                 }
                 .tag(Tab.stats)
+                .accessibilityIdentifier("tab_stats")
             
             SettingsView()
                 .tabItem {
                     Label(Tab.settings.rawValue, systemImage: Tab.settings.iconName)
                 }
                 .tag(Tab.settings)
+                .accessibilityIdentifier("tab_settings")
         }
         .tint(Color("AccentGold"))
     }
