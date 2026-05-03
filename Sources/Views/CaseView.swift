@@ -179,7 +179,7 @@ struct CaseView: View {
             EvidenceCollectionSheet(caseItem: $caseItem)
         }
         .sheet(isPresented: $showSuspectSheet) {
-            SuspectListSheet(caseItem: $caseItem)
+            SuspectListSheet(caseItem: caseItem)
         }
     }
     

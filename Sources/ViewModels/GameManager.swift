@@ -365,10 +365,10 @@ class GameManager: ObservableObject {
                 todayCase = nil
             } else {
                 // Unlock next case
-                if let nextToUnlock = allCases.first(where: { $0.unlockedAt == nil }) {
-                    nextToUnlock.unlockedAt = today
-                    todayCase = nextToUnlock
-                    activeCase = nextToUnlock
+                if let index = allCases.firstIndex(where: { $0.unlockedAt == nil }) {
+                    allCases[index].unlockedAt = today
+                    todayCase = allCases[index]
+                    activeCase = allCases[index]
                     saveData()
                 }
             }
