@@ -163,14 +163,24 @@ struct Dialogue: Identifiable, Codable {
     var isLie: Bool
 }
 
+struct DetectiveStats: Codable {
+    var totalPlayTime: TimeInterval = 0
+    var averageSolveTime: TimeInterval = 0
+    var bestTime: TimeInterval = 0
+    var totalCorrectEndings: Int = 0
+    var totalWrongEndings: Int = 0
+    var evidenceCollected: Int = 0
+    var suspectsInterrogated: Int = 0
+}
+
 struct DetectiveProgress: Codable {
-    var rank: DetectiveRank
-    var reputationPoints: Int
-    var totalCasesCompleted: Int
-    var casesByEnding: [UUID: UUID]
-    var unlockedSkills: [Skill]
-    var achievements: [Achievement]
-    var statistics: DetectiveStats
+    var rank: DetectiveRank = .rookie
+    var reputationPoints: Int = 0
+    var totalCasesCompleted: Int = 0
+    var casesByEnding: [UUID: UUID] = [:]
+    var unlockedSkills: [Skill] = []
+    var achievements: [Achievement] = []
+    var statistics: DetectiveStats = DetectiveStats()
 }
 
 enum DetectiveRank: String, Codable, CaseIterable {
@@ -202,28 +212,18 @@ enum DetectiveRank: String, Codable, CaseIterable {
 }
 
 struct Skill: Identifiable, Codable {
-    let id: UUID
-    var name: String
-    var description: String
-    var iconName: String
-    var isUnlocked: Bool
+    let id: UUID = UUID()
+    var name: String = ""
+    var description: String = ""
+    var iconName: String = "star"
+    var isUnlocked: Bool = false
 }
 
 struct Achievement: Identifiable, Codable {
-    let id: UUID
-    var name: String
-    var description: String
-    var iconName: String
-    var isUnlocked: Bool
-    var unlockedAt: Date?
-}
-
-struct DetectiveStats: Codable {
-    var totalPlayTime: TimeInterval
-    var averageSolveTime: TimeInterval
-    var bestTime: TimeInterval
-    var totalCorrectEndings: Int
-    var totalWrongEndings: Int
-    var evidenceCollected: Int
-    var suspectsInterrogated: Int
+    let id: UUID = UUID()
+    var name: String = ""
+    var description: String = ""
+    var iconName: String = "star"
+    var isUnlocked: Bool = false
+    var unlockedAt: Date? = nil
 }
