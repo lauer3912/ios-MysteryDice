@@ -147,35 +147,14 @@ struct StatsView: View {
                 .font(.headline)
                 .foregroundColor(.white)
             
-            VStack(spacing: 8) {
-                let totalEndings = gameManager.allCases.reduce(0) { $0 + $1.endings.count }
-                let collectedEndings = gameManager.progress.casesByEnding.values.count
-                
-                HStack {
-                    Text("Endings Discovered")
-                        .foregroundColor(.gray)
-                    Spacer()
-                    Text("\(collectedEndings)/\(totalEndings)")
-                        .foregroundColor(Color("AccentGold"))
-                        .bold()
-                }
-                
-                GeometryReader { geometry in
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 8)
-                        
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(Color("AccentGold"))
-                            .frame(width: geometry.size.width * (collectedEndings * 100 / max(totalEndings, 1)) / 100, height: 8)
-                    }
-                }
-                .frame(height: 8)
-            }
-            .padding(16)
-            .background(Color("CardDark"))
-            .cornerRadius(12)
+            let totalEndings = gameManager.allCases.reduce(0) { (acc: Int, item: Case) in acc + item.endings.count }
+            let collectedEndings = gameManager.progress.casesByEnding.count
+            let progressRatio = totalEndings > 0 ? CGFloat(collectedEndings) / CGFloat(totalEndings) : 0
+            
+            EndingsProgressView(totalEndings: totalEndings, collectedEndings: collectedEndings, progressRatio: progressRatio)
+                .padding(16)
+                .background(Color("CardDark"))
+                .cornerRadius(12)
         }
     }
     
@@ -214,6 +193,38 @@ struct StatBox: View {
         .padding(.vertical, 16)
         .background(Color("CardDark"))
         .cornerRadius(12)
+    }
+}
+
+struct EndingsProgressView: View {
+    let totalEndings: Int
+    let collectedEndings: Int
+    let progressRatio: CGFloat
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            HStack {
+                Text("Endings Discovered")
+                    .foregroundColor(.gray)
+                Spacer()
+                Text("\(collectedEndings)/\(totalEndings)")
+                    .foregroundColor(Color("AccentGold"))
+                    .bold()
+            }
+            
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(height: 8)
+                    
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color("AccentGold"))
+                        .frame(width: geometry.size.width * progressRatio, height: 8)
+                }
+            }
+            .frame(height: 8)
+        }
     }
 }
 
