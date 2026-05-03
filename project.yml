@@ -59,6 +59,10 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.ggsheng.MysteryDiceUITests
         GENERATE_INFOPLIST_FILE: YES
         TEST_TARGET_NAME: MysteryDice
+    scheme:
+      gatherCoverageData: false
+      testTargets:
+        - MysteryDiceUITests
 
   MysteryDiceTests:
     type: bundle.unit-test
@@ -75,3 +79,40 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/MysteryDice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MysteryDice"
         BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  MysteryDice:
+    build:
+      targets:
+        MysteryDice: all
+        MysteryDiceUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - MysteryDiceUITests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+  MysteryDiceUITests:
+    build:
+      targets:
+        MysteryDice: all
+        MysteryDiceUITests: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - MysteryDiceUITests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
